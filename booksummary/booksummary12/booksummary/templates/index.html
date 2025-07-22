@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Summary AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="min-h-screen flex flex-col">
+    <div class="flex-grow">
+        <div class="container mx-auto px-4 py-8">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-800 mb-2">Book Summary AI</h1>
+                <p class="text-gray-600">Get comprehensive summaries of any book using AI</p>
+            </header>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+                <!-- Mode Selection Tabs -->
+                <div class="flex border-b mb-6">
+                    <button id="titleTab" class="tab-button active px-4 py-2 text-lg font-medium text-blue-600 border-b-2 border-blue-600">
+                        Book Title
+                    </button>
+                    <button id="contentTab" class="tab-button px-4 py-2 text-lg font-medium text-gray-500 hover:text-gray-700">
+                        Content Analysis
+                    </button>
+                </div>
+
+                <!-- Book Title Mode -->
+                <div id="titleMode" class="mode-content">
+                    <div class="mb-6">
+                        <label for="bookTitle" class="block text-gray-700 text-sm font-bold mb-2">Book Title</label>
+                        <input type="text" id="bookTitle" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter book title">
+                    </div>
+                </div>
+
+                <!-- Content Analysis Mode -->
+                <div id="contentMode" class="mode-content hidden">
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Upload Book Content</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center" id="dropZone">
+                            <input type="file" id="fileInput" class="hidden" accept=".pdf,.epub,.txt">
+                            <p class="text-gray-600">Drag and drop your file here or</p>
+                            <button id="uploadButton" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                Choose File
+                            </button>
+                            <p class="text-sm text-gray-500 mt-2">Supported formats: PDF, EPUB, TXT</p>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="contentText" class="block text-gray-700 text-sm font-bold mb-2">Or Paste Content</label>
+                        <textarea id="contentText" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="6" placeholder="Paste book content here"></textarea>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="generateButton" class="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition duration-200">
+                    Generate Summary
+                </button>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="hidden mt-6 text-center">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
+                    <p class="mt-2 text-gray-600">Generating summary...</p>
+                </div>
+
+                <!-- Summary Display -->
+                <div id="summaryContainer" class="mt-8 hidden">
+                    <div class="space-y-4">
+                        <!-- Summary Section -->
+                        <div class="bg-gray-50 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200 transition-colors" data-toggle-section="summarySection">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-8 bg-indigo-500 rounded-full mr-3"></div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Summary</h3>
+                                </div>
+                                <svg class="w-6 h-6 transform transition-transform" id="summarySectionArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div id="summarySection" class="p-6 hidden">
+                                <div class="prose max-w-none text-gray-700">
+                                    <!-- Summary content will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Key Points Section -->
+                        <div class="bg-gray-50 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200 transition-colors" data-toggle-section="keyPoints">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-8 bg-blue-500 rounded-full mr-3"></div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Key Points</h3>
+                                </div>
+                                <svg class="w-6 h-6 transform transition-transform" id="keyPointsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div id="keyPoints" class="p-6 hidden">
+                                <div class="prose max-w-none">
+                                    <!-- Key points will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Key Insights Section -->
+                        <div class="bg-gray-50 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200 transition-colors" data-toggle-section="keyInsights">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-8 bg-green-500 rounded-full mr-3"></div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Key Insights</h3>
+                                </div>
+                                <svg class="w-6 h-6 transform transition-transform" id="keyInsightsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div id="keyInsights" class="p-6 hidden">
+                                <div class="prose max-w-none">
+                                    <!-- Key insights will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Areas of Improvement Section -->
+                        <div id="improvementSection" class="bg-gray-50 rounded-lg overflow-hidden hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200 transition-colors" data-toggle-section="improvements">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-8 bg-purple-500 rounded-full mr-3"></div>
+                                    <h3 class="text-xl font-semibold text-gray-800">Areas of Improvement</h3>
+                                </div>
+                                <svg class="w-6 h-6 transform transition-transform" id="improvementsArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div id="improvements" class="p-6 hidden">
+                                <div class="prose max-w-none">
+                                    <!-- Areas of improvement will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Developers Section -->
+                        <div class="bg-gray-50 rounded-lg overflow-hidden">
+                            <button class="w-full flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200 transition-colors" data-toggle-section="developers">
+                                <div class="flex items-center">
+                                    <div class="w-2 h-8 bg-yellow-500 rounded-full mr-3"></div>
+                                    <h3 class="text-xl font-semibold">Developers</h3>
+                                </div>
+                                <svg class="w-6 h-6 transform transition-transform" id="developersArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div id="developers" class="p-6" class="bg-blue-500">
+                                <div class="prose max-w-none space-y-3">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-1 h-6 rounded-full"></div>
+                                        <p>Sreekar - 12307586</p>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-1 h-6 rounded-full"></div>
+                                        <p>Bandi Harikumar - 12317054</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="hidden mt-6 p-4 bg-red-100 text-red-700 rounded-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto py-8 border-t border-gold">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-semibold mb-6 text-center" style="background: linear-gradient(120deg, #d4af37 0%, #f4e5a6 50%, #c19b2c 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: 'Playfair Display', serif;">Developed by</h2>
+            <div class="flex flex-col items-center justify-center space-y-4">
+                <p class="text-xl" style="color: #d4af37; font-family: 'Cormorant Garamond', serif;">Sreekar - 12307586</p>
+                <p class="text-xl" style="color: #d4af37; font-family: 'Cormorant Garamond', serif;"></p>
+                <p class="text-xl" style="color: #d4af37; font-family: 'Cormorant Garamond', serif;">Bandi Harikumar - 12317054</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

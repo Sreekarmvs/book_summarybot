@@ -1,0 +1,508 @@
+/* Custom styles for Book Summary AI */
+
+/* Font imports - Adding elegant serif fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+/* Base styles */
+body {
+    background: linear-gradient(135deg, #0a1512 0%, #1a2825 100%);
+    color: #e0e0e0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.125rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header styles */
+header h1 {
+    background: linear-gradient(120deg, #d4af37 0%, #f4e5a6 50%, #c19b2c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #a8b3b0;
+}
+
+/* Container styles */
+.container .bg-white {
+    background: linear-gradient(to bottom right, #1a2825, #0a1512);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
+                0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* Button styles */
+#generateButton {
+    background: linear-gradient(135deg, #d4af37 0%, #a37e21 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(212, 175, 55, 0.2),
+                0 2px 4px -1px rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #0a1512;
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+#generateButton:hover {
+    background: linear-gradient(135deg, #b38728 0%, #d4af37 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -1px rgba(212, 175, 55, 0.25),
+                0 4px 6px -1px rgba(212, 175, 55, 0.15);
+}
+
+#uploadButton {
+    background: linear-gradient(135deg, #c19b2c 0%, #a37e21 100%);
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+#uploadButton:hover {
+    background: linear-gradient(135deg, #a37e21 0%, #c19b2c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px -1px rgba(212, 175, 55, 0.25);
+}
+
+/* Tab styles */
+.tab-button {
+    color: #d4af37;
+    font-family: "Playfair Display", serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+.tab-button.active {
+    background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.1));
+    border-color: #d4af37;
+    position: relative;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, #d4af37, #a37e21);
+}
+
+/* Summary section styles */
+#summaryContainer .bg-gray-50 {
+    background: linear-gradient(145deg, #1a2825, #152220);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+#summaryContainer button {
+    background: linear-gradient(to right, #1a2825, #152220);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    color: #e0e0e0;
+    font-family: "Playfair Display", serif;
+}
+
+#summaryContainer button:hover {
+    background: linear-gradient(to right, #262626, #1a1a1a);
+}
+
+/* Section indicator bars */
+#summaryContainer .w-2.h-8 {
+    background: linear-gradient(to bottom, #d4af37 0%, #b38728 100%);
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+}
+
+/* Input and textarea styles */
+input[type="text"], textarea {
+    background: linear-gradient(to bottom right, #152220, #1a2825);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    color: #e0e0e0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="text"]:focus, textarea:focus {
+    background: #262626;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2),
+                0 0 0 3px rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* Drop zone styles */
+#dropZone {
+    background: linear-gradient(145deg, #152220, #1a2825);
+    border: 2px dashed rgba(212, 175, 55, 0.2);
+    font-family: 'Cormorant Garamond', serif;
+    transition: all 0.3s ease;
+}
+
+#dropZone.dragover {
+    background: linear-gradient(145deg, #2d2d2d, #333333);
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+/* Loading animation enhancement */
+#loading .animate-spin {
+    border: 4px solid rgba(212, 175, 55, 0.1);
+    border-top-color: #d4af37;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Section content styles */
+.prose {
+    font-family: 'Cormorant Garamond', serif;
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 1.2rem;
+}
+
+.prose p {
+    margin-bottom: 1.5em;
+    color: #c9d1ce;
+}
+
+.prose strong {
+    color: #d4af37;
+    font-weight: 600;
+}
+
+.prose ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.prose ul li {
+    position: relative;
+    padding-left: 1.5em;
+    margin-bottom: 0.75em;
+}
+
+/* Error message enhancement */
+#errorMessage {
+    background: linear-gradient(135deg, #2a1f1f, #1f1515);
+    border-left: 4px solid #dc2626;
+    color: #fecaca;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+
+/* Responsive enhancements */
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.875rem;
+    }
+}
+
+/* Tab transitions */
+.tab-button {
+    transition: all 0.3s ease;
+}
+
+/* Summary content formatting */
+#summaryContent {
+    line-height: 1.6;
+}
+
+#summaryContent h3 {
+    color: #1f2937;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#summaryContent p {
+    margin-bottom: 1rem;
+}
+
+#summaryContent ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Loading animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Summary section styles */
+#summaryContainer .prose {
+    line-height: 1.8;
+}
+
+#summaryContainer h3 {
+    color: #d4af37;
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: 0.03em;
+}
+
+/* Dropdown animations */
+#summaryContainer svg {
+    transition: transform 0.3s ease;
+}
+
+#summaryContainer .rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Content transitions */
+#summaryContainer > div > div > div:last-child {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Elaborate Summary specific styles */
+#elaborateSummary .prose {
+    background: linear-gradient(145deg, #2d2d2d, #262626);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+#elaborateSummary .prose p {
+    margin-bottom: 1rem;
+}
+
+/* List styles for all sections */
+#summaryContainer ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#summaryContainer li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #c9d1ce;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+#summaryContainer li::before {
+    content: "•";
+    color: #d4af37;
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Section styling */
+#summaryContainer > div > div {
+    transition: all 0.3s ease;
+}
+
+#summaryContainer > div > div:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* Content spacing */
+#summaryContainer .prose {
+    margin-top: 1rem;
+}
+
+/* Section headers */
+#summaryContainer > div > div > div:first-child {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .tab-button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+    
+    #summaryContainer > div {
+        padding: 1rem;
+    }
+    
+    #summaryContainer h3 {
+        font-size: 1.1rem;
+    }
+    
+    #summaryContainer li {
+        font-size: 0.95rem;
+    }
+    
+    #summaryContainer button {
+        padding: 0.75rem;
+    }
+    
+    #elaborateSummary .prose {
+        font-size: 1rem;
+    }
+}
+
+/* Add decorative elements */
+.container::before {
+    content: '❧';
+    font-size: 2rem;
+    color: #d4af37;
+    background: none;
+    width: auto;
+    height: auto;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(to right, 
+        transparent, 
+        rgba(212, 175, 55, 0.3), 
+        rgba(212, 175, 55, 0.5), 
+        rgba(212, 175, 55, 0.3), 
+        transparent
+    );
+}
+
+/* Text selection color */
+::selection {
+    background: rgba(212, 175, 55, 0.15);
+    color: #d4af37;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a1512;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #d4af37, #a37e21);
+    border-radius: 4px;
+}
+
+/* Loading animation */
+#loading p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #a8b3b0;
+}
+
+/* Developers section styles */
+#developers {
+    background: linear-gradient(145deg, #1a2825, #152220);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+#developers .prose p {
+    color: #d4af37;
+    font-family: "Playfair Display", serif;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#developers .w-1.h-6 {
+    background: linear-gradient(to bottom, #d4af37 0%, #b38728 100%);
+    box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+}
+
+#developers .flex:hover p {
+    color: #f4e5a6;
+    transform: translateX(4px);
+}
+
+#developers .flex {
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+#developers .flex:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+/* Update the developers section button to match theme */
+[data-toggle-section="developers"] {
+    background: linear-gradient(to right, #1a2825, #152220) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+}
+
+[data-toggle-section="developers"]:hover {
+    background: linear-gradient(to right, #152220, #0a1512) !important;
+}
+
+[data-toggle-section="developers"] h3 {
+    background: linear-gradient(120deg, #d4af37 0%, #f4e5a6 50%, #c19b2c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer styles */
+footer {
+    background: linear-gradient(145deg, #1a2825, #152220);
+    border-top: 2px solid #d4af37;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+footer p {
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+footer p:hover {
+    color: #f4e5a6 !important;
+    transform: translateY(-2px);
+}
+
+.border-gold {
+    border-color: #d4af37;
+} 
